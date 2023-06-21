@@ -64,7 +64,7 @@ if [[ -f "$FILTERED1" && -f "$FILTERED2" ]]; then
 	echo 'Filtered reads already exist; skipping fastp'
 else
 	fastp -i ${sample1} -I ${sample2} -o $FILTERED1 -O $FILTERED2 -q 15 -l 30 -h ${sample}.html
-	mv fastp.json ${sample}_fastq.json
+	mv fastp.json ${sample}_fastp.json
 fi
 #Fastp takes two paired fastq files (options -i and -I) and removes bases with Phred quality below 15 (-q 15) and reads that end up with a lenght of less than 30 bases (-l 30). The raw files remain intact, and two new filtered files are generated (options -o and -O). -h specifies names for the html file with plots showing the read quality before and after filtering  (potential alternative to FastQC).
 
@@ -88,7 +88,7 @@ ABUNDANCE=./${sample}/abundance.h5
 if [[ -f "$ABUNDANCE" ]]; then
 	echo 'Kallisto already run on this sample; skipping'
 else
-	kallisto quant -i $INDEX -o $sample -b 100 $FILTERED1 $FILTERED2 > ${sample}_kallisto.out
+	kallisto quant -i $INDEX -o $sample -b 100 $FILTERED1 $FILTERED2 2> ${sample}_kallisto.out
 fi
 
 #The results for each sample will be in a separate folder with the name of the sample (-o). That folder will contain three files: abundance.h5, abundance.tsv, and run_info.json
