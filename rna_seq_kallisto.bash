@@ -15,7 +15,10 @@
 
 #echo 'What is the name of the file with the transcriptome?'
 
+# Fastqc, fastp and kallisto need to be installed in the computer. In case you install it with conda, the conda environment you install it must be active before running this script. For example, if you installed the programs in an environment called kallisto, you must run the command 'conda activate kallisto' before you run the bash script.
 #Run the script as 'rna_seq_kallisto.bash *name_of_sample*' replacing *name_of_sample* with the initial part of your fastq files, without the _R1.fastq.gz
+#You can also call the run_kallisto.bash script to run through a series of samples on a folder.
+
 #sample=1_1paired
 sample=$1
 sample1=${sample}_R1.fastq.gz
@@ -71,6 +74,8 @@ fi
 ## 3. Quantification using kallisto
 
 #[Kallisto](https://pachterlab.github.io/kallisto/about) is a software for rapidly quantifying abundances of transcripts from RNA-seq data. It is based on a pseudoalignment strategy using the transcriptome of a species as reference. This reference transcriptome needs to be downloaded and indexed before expression can be quantified. Transcriptomes for species with sequenced genomes can be obtained from Ensembl or NCBI (and downloaded using "wget").
+
+
 
 #To create the index of the transcriptome, the command is:
 INDEX=${transcriptome}.idx
